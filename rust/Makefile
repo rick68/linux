@@ -149,7 +149,8 @@ quiet_cmd_rustsysroot = RUSTSYSROOT
 	rm -rf $(objtree)/rust/test; \
 	mkdir -p $(objtree)/rust/test; \
 	cp -a $(rustc_sysroot) $(objtree)/rust/test/sysroot; \
-	cp -r $(srctree)/rust/alloc/* \
+	chmod u+w -R $(objtree)/rust/test/sysroot; \
+	cp --remove-destination -r $(srctree)/rust/alloc/* \
 		$(objtree)/rust/test/sysroot/lib/rustlib/src/rust/library/alloc/src; \
 	echo '\#!/bin/sh' > $(objtree)/rust/test/rustc_sysroot; \
 	echo "$(RUSTC) --sysroot=$(abspath $(objtree)/rust/test/sysroot) \"\$$@\"" \
